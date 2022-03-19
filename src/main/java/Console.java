@@ -1,5 +1,7 @@
 //Zacharias Thorell
 
+import lib.CensusAPI;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -8,6 +10,8 @@ import java.util.Arrays;
  * Entry point for application, accepts inputs and executes commands until closed.
  */
 public class Console {
+    private static final String SERVICE_ID = "TorranPS2Util";
+
     private static final String CLOSE_COMMAND = "close";
     private static final String LOOKUP_COMMAND = "lookup";
 
@@ -15,6 +19,8 @@ public class Console {
     private static boolean running = true;
 
     public static void main(String[] args) {
+        CensusAPI.setServiceId(SERVICE_ID);
+
         try {
             while (running) {
                 handleInput(consoleReader.readLine().toLowerCase().split("\\s+"));
