@@ -17,16 +17,15 @@ import java.util.Scanner;
  */
 public class CensusAPI {
     private static String SERVICE_ID = null;
-    public static final String NAMESPACE = "ps2:v2/";
-    public static final String BASE_URL = "https://census.daybreakgames.com/";
+    private static final String NAMESPACE = "ps2:v2/";
+    private static final String BASE_URL = "https://census.daybreakgames.com/";
 
-    public static final String AND = "&";
-    public static final String FILTER_PREFIX = AND + "c:";
+    private static final String AND = "&";
+    private static final String FILTER_PREFIX = AND + "c:";
+
     public static final String SHOW_FILTER = FILTER_PREFIX + "show=";
 
-    public static final String GET = "get/";
-
-    public static final String GET_CHARACTER_ONLINE_STATUS = BASE_URL + GET + NAMESPACE + "characters_online_status/?character_id=";
+    private static final String GET = "get/";
 
     public static final Map<String, Faction> FACTION_MAP = Map.of("1", Faction.TR, "2", Faction.NC, "3", Faction.VS);
 
@@ -51,6 +50,13 @@ public class CensusAPI {
      */
     public static String getGetCharacterURL() {
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?name.first_lower=";
+    }
+
+    /**
+     * @return the base url for a get characters_online_status request.
+     */
+    public static String getGetCharacterOnlineStatusURL() {
+        return BASE_URL + GET + NAMESPACE + "characters_online_status/?character_id=";
     }
 
     /**

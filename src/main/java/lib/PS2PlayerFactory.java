@@ -33,7 +33,7 @@ public class PS2PlayerFactory {
             }
 
             String playerId = responseObject.getString("character_id");
-            String isOnlineQuery = CensusAPI.GET_CHARACTER_ONLINE_STATUS + playerId;
+            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL() + playerId;
 
             JSONObject responseObjectID = null;
             try {
