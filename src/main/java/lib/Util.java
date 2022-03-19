@@ -1,5 +1,7 @@
 //Zacharias Thorell
 
+package lib;
+
 /**
  * Utility class for stuff not directly related to the Census API.
  */
