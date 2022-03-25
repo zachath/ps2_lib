@@ -7,6 +7,7 @@ package lib;
  */
 public class PS2Player {
     /*Values that cannot change*/
+    private final String id;
     private final String name;
     private final Faction faction;
     private final String creationDate;
@@ -20,8 +21,9 @@ public class PS2Player {
     private int totalCerts;
     private int availableCerts;
 
-    protected PS2Player(String name, Faction faction, String creationDate, boolean online, int logins, int battleRank,
+    protected PS2Player(String id, String name, Faction faction, String creationDate, boolean online, int logins, int battleRank,
                         int minutesPlayed, int hoursPlayed, int totalCerts, int availableCerts) {
+        this.id = id;
         this.name = name;
         this.faction = faction;
         this.creationDate = creationDate;
@@ -52,6 +54,10 @@ public class PS2Player {
         } catch (IllegalServiceIdException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {

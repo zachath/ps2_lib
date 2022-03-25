@@ -29,6 +29,9 @@ public class LookupTask implements Runnable {
         } catch (IllegalServiceIdException e) {
             e.printStackTrace();
             return;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Player could not be created");
+            return;
         }
 
         String builder = "Name: " + player.getName() + "\t" +
