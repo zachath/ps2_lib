@@ -29,7 +29,7 @@ public class CensusAPI {
     private static final String GET = "get/";
     public static final int GET_MAX_LIMIT = 1000;
 
-    public static final Map<String, Faction> FACTION_MAP = Map.of("1", Faction.TR, "2", Faction.NC, "3", Faction.VS);
+    public static final Map<String, Faction> FACTION_MAP = Map.of("1", Faction.VS, "2", Faction.NC, "3", Faction.TR);
 
     /**
      * To use the api a Service ID is needed which is requested at: http://census.daybreakgames.com/

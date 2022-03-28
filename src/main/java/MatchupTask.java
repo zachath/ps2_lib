@@ -1,10 +1,7 @@
 //Zacharias Thorell
 
-import lib.CensusAPI;
-import lib.IllegalServiceIdException;
-import lib.PS2Player;
-import lib.PS2PlayerFactory;
-import lib.event.Event;
+import lib.*;
+import lib.event.DeathEvent;
 import lib.event.EventFactory;
 
 import java.util.ArrayList;
@@ -14,21 +11,21 @@ import java.util.List;
  * Retrieves the 1000 (API limit) most recent DEATH events of player1 and creates a matchup with player2
  */
 public class MatchupTask implements Runnable {
-    private final String playername1, playername2;
+    private final String playerName1, playerName2;
 
-    public MatchupTask(String playername1, String playername2) {
-        this.playername1 = playername1;
-        this.playername2 = playername2;
+    public MatchupTask(String playerName1, String playerName2) {
+        this.playerName1 = playerName1;
+        this.playerName2 = playerName2;
     }
 
     @Override
     public void run() {
         PS2Player player1 = null;
-        PS2Player player2;
+        PS2Player player2 = null;
 
         try {
-            player1 = PS2PlayerFactory.createPlayer(playername1);
-            player2 = PS2PlayerFactory.createPlayer(playername1);
+            player1 = PS2PlayerFactory.createPlayer(playerName1);
+            player2 = PS2PlayerFactory.createPlayer(playerName2);
         } catch (IllegalServiceIdException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
@@ -36,14 +33,36 @@ public class MatchupTask implements Runnable {
             return;
         }
 
-        //Get 1000 latest deaths of player1
-        List<Event> eventList = new ArrayList<>();
+        //Get 1000 latest deaths of the players
+        List<DeathEvent> player1Deaths = new ArrayList<>();
+        List<DeathEvent> player2Deaths = new ArrayList<>();
         try {
-            eventList = EventFactory.getDeathEvents(player1.getId());
+            player1Deaths = EventFactory.getDeathEvents(player1.getId());
+            player2Deaths = EventFactory.getDeathEvents(player2.getId());
         } catch (IllegalServiceIdException e) {
             e.printStackTrace();
         }
 
-        System.out.println(eventList.size());
+        final PS2Player finalPlayer1 = player1;
+        final PS2Player finalPlayer2 = player2;
+
+        int player1DeathsByPlayer2 = player1Deaths.stream().filter(e -> e.getAttackerId().equals(finalPlayer2.getId())).toList().size();
+        int player2DeathsByPlayer1 = player2Deaths.stream().filter(e -> e.getAttackerId().equals(finalPlayer1.getId())).toList().size();
+
+        String out = player1.getName() +
+                " " +
+                "(" +
+                player1.getFaction() +
+                ") " +
+                player2DeathsByPlayer1 +
+                " vs " +
+                player2.getName() +
+                " " +
+                "(" +
+                player2.getFaction() +
+                ") " +
+                player1DeathsByPlayer2;
+
+        System.out.println(out);
     }
 }

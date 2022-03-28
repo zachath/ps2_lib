@@ -10,12 +10,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Creates events using the supplied methods.
+ */
 public class EventFactory {
-    public static List<Event> getDeathEvents(String id) throws IllegalServiceIdException {
+    /**
+     * @param id id of the character to get death events from-
+     * @return A list of death events.
+     * @throws IllegalServiceIdException if the service id is not set.
+     */
+    public static List<DeathEvent> getDeathEvents(String id) throws IllegalServiceIdException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
 
-        List<Event> deaths = new ArrayList<>();
+        List<DeathEvent> deaths = new ArrayList<>();
         String query = CensusAPI.getCharacterEventList(id, CensusAPI.GET_MAX_LIMIT, "DEATH");
 
         JSONArray responseArray = new JSONArray();
