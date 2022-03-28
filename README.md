@@ -12,3 +12,6 @@ Stops the application.
 
 ### `lookup player`
 Sends a request to the api to retrieve information about `player` which is then printed if the player is found.
+
+### `matchup player1 player2`
+Summarizes how many times the player has killed eachother.

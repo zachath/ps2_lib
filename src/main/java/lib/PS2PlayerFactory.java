@@ -33,7 +33,7 @@ public class PS2PlayerFactory {
             }
 
             String playerId = responseObject.getString("character_id");
-            String isOnlineQuery = CensusAPI.GET_CHARACTER_ONLINE_STATUS + playerId;
+            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL() + playerId;
 
             JSONObject responseObjectID = null;
             try {
@@ -54,7 +54,7 @@ public class PS2PlayerFactory {
             int logins = Integer.parseInt(responseObject.getJSONObject("times").getString("login_count"));
             String created = responseObject.getJSONObject("times").getString("creation_date");
 
-            return new PS2Player(name, faction, created, isOnline, logins, battleRank, minutesPlayed, hoursPlayed, totalCerts, availableCerts);
+            return new PS2Player(playerId, name, faction, created, isOnline, logins, battleRank, minutesPlayed, hoursPlayed, totalCerts, availableCerts);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,6 +14,7 @@ public class Console {
 
     private static final String CLOSE_COMMAND = "close";
     private static final String LOOKUP_COMMAND = "lookup";
+    private static final String MATCHUP_COMMAND = "matchup";
 
     private static final BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
     private static boolean running = true;
@@ -37,14 +38,11 @@ public class Console {
      * @param input user input.
      */
     public static void handleInput(String[] input) {
-        if (input[0].equals(CLOSE_COMMAND)) {
-            running = false;
-        }
-        else if (input[0].equals(LOOKUP_COMMAND)) {
-            new Thread(new LookupTask(input[1])).start();
-        }
-        else {
-            System.out.println("Unsupported command: " + Arrays.toString(input));
+        switch (input[0]) {
+            case CLOSE_COMMAND -> running = false;
+            case LOOKUP_COMMAND -> new Thread(new LookupTask(input[1])).start();
+            case MATCHUP_COMMAND -> new Thread(new MatchupTask(input[1], input[2])).start();
+            default -> System.out.println("Unsupported command: " + Arrays.toString(input));
         }
     }
 }
