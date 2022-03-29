@@ -8,7 +8,8 @@ package lib;
 public enum Faction {
     TR("Terran Republic", "TR", Util.ANSI_RED),
     NC("New Conglomerate", "NC", Util.ANSI_BLUE),
-    VS("Vanu Sovereignty", "VS", Util.ANSI_PURPLE);
+    VS("Vanu Sovereignty", "VS", Util.ANSI_PURPLE),
+    NSO("NSO Operative", "NSO", Util.ANSI_WHITE);
 
     final String fullName;
     final String shortHand;
@@ -17,6 +18,13 @@ public enum Faction {
         this.fullName = fullName;
         this.shortHand = shortHand;
         this.colour = colour;
+    }
+
+    /**
+     * @return the colour of this faction.
+     */
+    public String getFactionColour() {
+        return colour;
     }
 
     /**
