@@ -22,7 +22,7 @@ public class PS2PlayerFactory {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
 
-        String query = CensusAPI.getGetCharacterURL() + name + FILTERS;
+        String query = CensusAPI.getGetCharacterURL(name, FILTERS);
         try {
 
             JSONObject responseObject;
@@ -33,7 +33,7 @@ public class PS2PlayerFactory {
             }
 
             String playerId = responseObject.getString("character_id");
-            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL() + playerId;
+            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL(playerId);
 
             JSONObject responseObjectID = null;
             try {

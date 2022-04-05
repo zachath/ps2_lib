@@ -65,17 +65,15 @@ public class CensusAPI {
     /**
      * @return the base url for a get_character request.
      */
-    //TODO: Embed in method parameters as in getCharacterEventList
-    public static String getGetCharacterURL() {
-        return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?name.first_lower=";
+    public static String getGetCharacterURL(String name, String filters) {
+        return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?name.first_lower=" + name + filters;
     }
 
     /**
      * @return the base url for a get characters_online_status request.
      */
-    //TODO: Embed in method parameters as in getCharacterEventList
-    public static String getGetCharacterOnlineStatusURL() {
-        return BASE_URL + SERVICE_ID + GET + NAMESPACE + "characters_online_status/?character_id=";
+    public static String getGetCharacterOnlineStatusURL(String playerId) {
+        return BASE_URL + SERVICE_ID + GET + NAMESPACE + "characters_online_status/?character_id=" + playerId;
     }
 
     /**
