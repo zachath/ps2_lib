@@ -22,7 +22,7 @@ public class PS2PlayerFactory {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
 
-        String query = CensusAPI.getGetCharacterURL(name, FILTERS);
+        String query = CensusAPI.getGetCharacterURL(name.toLowerCase(), FILTERS);
         try {
 
             JSONObject responseObject;

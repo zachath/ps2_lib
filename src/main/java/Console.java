@@ -25,7 +25,7 @@ public class Console {
 
         try {
             while (running) {
-                handleInput(consoleReader.readLine().toLowerCase().split("\\s+"));
+                handleInput(consoleReader.readLine().split("\\s+"));
             }
 
             System.out.println("Shutting Down");
@@ -33,7 +33,7 @@ public class Console {
             e.printStackTrace();
         }
 
-        //TODO: On shutdown, clear all subscriptions.
+        //TODO: On shutdown, clear all subscriptions and kill all threads.
     }
 
     /**

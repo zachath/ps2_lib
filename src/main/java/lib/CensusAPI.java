@@ -9,9 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 
 /**
  * Values related to the Census API and Planetside 2.
@@ -24,8 +25,10 @@ public class CensusAPI {
     //Used to open connection to websocket.
     private static final String EVENT_STREAMING_URL = "wss://push.planetside2.com/streaming?environment=ps2&service-id=";
 
+    public static final List<String> LIVE_STREAMING_JSON_KEYS_TO_IGNORE = Arrays.asList("");
+
     //Unsubscribe from all events.
-    private static final String CLEAR_SUBSCRIBE = "{\"action\":\"clearSubscribe\",\"all\":\"true\",\"service\":\"event\"}";
+    public static final String CLEAR_SUBSCRIBE = "{\"action\":\"clearSubscribe\",\"all\":\"true\",\"service\":\"event\"}";
 
     private static final String AND = "&";
     private static final String COMMAND_PREFIX = AND + "c:";
