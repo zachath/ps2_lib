@@ -22,19 +22,10 @@ public class CensusAPI {
     private static final String BASE_URL = "https://census.daybreakgames.com/";
 
     //Used to open connection to websocket.
-    private static final String EVENT_STREAMING_URL = "wss://push.planetside2.com/streaming?environment=ps2&service-id=s:";
+    private static final String EVENT_STREAMING_URL = "wss://push.planetside2.com/streaming?environment=ps2&service-id=";
 
     //Unsubscribe from all events.
     private static final String CLEAR_SUBSCRIBE = "{\"action\":\"clearSubscribe\",\"all\":\"true\",\"service\":\"event\"}";
-
-    /* TODO
-    Example subscribe:
-    {"service":"event","action":"subscribe","characters":["5428926375528770321"],"eventNames":["PlayerLogin", "PlayerLogout"]}
-
-    Response:
-    {"payload":{"character_id":"5428926375528770321","event_name":"PlayerLogout","timestamp":"1648890288","world_id":"10"},"service":"event","type":"serviceMessage"}
-    {"payload":{"character_id":"5428926375528770321","event_name":"PlayerLogin","timestamp":"1648890203","world_id":"10"},"service":"event","type":"serviceMessage"}
-    */
 
     private static final String AND = "&";
     private static final String COMMAND_PREFIX = AND + "c:";
@@ -92,7 +83,7 @@ public class CensusAPI {
      * @return the url for the event streaming.
      */
     public static String getEventStreamingUrl() {
-        return EVENT_STREAMING_URL + SERVICE_ID;
+        return EVENT_STREAMING_URL + SERVICE_ID.substring(0, SERVICE_ID.length() - 1); //To remove the final "/" from the Service ID that is used otherwise.
     }
 
     /**
@@ -103,7 +94,7 @@ public class CensusAPI {
      * @param event name of event.
      * @return JSON string for the specified subscribe.
      */
-    public static String getCharacterSubscribeJSON(String characterID, String event) {
+    public static String getCharacterSubscribeJSONPayload(String characterID, String event) {
         return "{\"service\":\"event\",\"action\":\"subscribe\",\"characters\":[\"" + characterID + "\"], \"eventNames:\"[\"" + event + "\"]}";
     }
 

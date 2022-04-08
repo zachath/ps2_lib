@@ -1,5 +1,5 @@
 //Zacharias Thorell
-
+//TODO: take a look at logging (Logger).
 import lib.CensusAPI;
 
 import java.io.BufferedReader;
@@ -41,12 +41,16 @@ public class Console {
      * @param input user input.
      */
     public static void handleInput(String[] input) {
-        switch (input[0]) {
-            case CLOSE_COMMAND -> running = false;
-            case LOOKUP_COMMAND -> new Thread(new LookupTask(input[1])).start();
-            case MATCHUP_COMMAND -> new Thread(new MatchupTask(input[1], input[2])).start();
-            case SUBSCRIBE_COMMAND -> new Thread(new SubscribeTask(input[1], input[2])).start();
-            default -> System.out.println("Unsupported command: " + Arrays.toString(input));
+        try {
+            switch (input[0]) {
+                case CLOSE_COMMAND -> running = false;
+                case LOOKUP_COMMAND -> new Thread(new LookupTask(input[1])).start();
+                case MATCHUP_COMMAND -> new Thread(new MatchupTask(input[1], input[2])).start();
+                case SUBSCRIBE_COMMAND -> new Thread(new SubscribeTask(input[1], input[2])).start();
+                default -> System.out.println("Unsupported command: " + Arrays.toString(input));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
