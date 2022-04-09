@@ -5,6 +5,8 @@ package lib;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+//Todo: create player from id.
+
 /**
  * A class creating PS2Player instances.
  */

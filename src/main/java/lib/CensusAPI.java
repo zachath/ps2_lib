@@ -2,6 +2,7 @@
 
 package lib;
 
+import lib.event.EventFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-//TODO: logger and debug
+//TODO: logger and debug.
+//TODO: Map world id to their names.
 
 /**
  * Values related to the Census API and Planetside 2.
@@ -156,7 +158,7 @@ public class CensusAPI {
 
         try {
             JSONObject payload = object.getJSONObject("payload");
-            System.out.println(payload);
+            System.out.println(EventFactory.createEvent(payload));
         } catch (JSONException ignored) {} //Ignore messages from the API that is not in response to subscription.
     }
 }
