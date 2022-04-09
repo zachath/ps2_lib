@@ -12,19 +12,28 @@ import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class SubscribeTask implements Runnable {
     private static LiveStreamingClient CLIENT;
     private static boolean CONNECTED;
 
-    private final String characterId, event;
+    private final String characterId;
+    private final List<String> events = new ArrayList<>();
 
-    public SubscribeTask(String characterName, String event) throws URISyntaxException, IllegalServiceIdException {
+    public SubscribeTask(String characterName, Collection<String> events) throws URISyntaxException, IllegalServiceIdException {
         if (CLIENT == null) {
             CLIENT = new LiveStreamingClient(new URI(CensusAPI.getEventStreamingUrl()));
         }
         this.characterId = PS2PlayerFactory.createPlayer(characterName).getId();
-        this.event = event;
+        this.events.addAll(events);
+    }
+
+    public SubscribeTask(String characterName, String event) throws URISyntaxException, IllegalServiceIdException {
+        this(characterName, List.of(event));
     }
 
     @Override
@@ -38,13 +47,14 @@ public class SubscribeTask implements Runnable {
             CONNECTED = true;
         }
 
-        CLIENT.send(formatPayLoad(characterId, event));
+        CLIENT.send(formatPayLoad(characterId, events));
     }
 
-    private String formatPayLoad(String characterId, String event) {
+    //TODO: move to API.
+    private static String formatPayLoad(String characterId, Collection<String> events) {
         JSONObject toBeSent = new JSONObject();
 
-        toBeSent.put("eventNames", new JSONArray().put(event)); //"[" + event + "]"
+        toBeSent.put("eventNames", new JSONArray(events));
         toBeSent.put("characters", new JSONArray().put(characterId));
         toBeSent.put("action","subscribe");
         toBeSent.put("service", "event");
@@ -66,10 +76,7 @@ public class SubscribeTask implements Runnable {
 
         @Override
         public void onMessage(String s) {
-            //System.out.println("Got message: " + s);
-            JSONObject msg = new JSONObject(s);
-
-            System.out.println("Got: " + msg);
+            CensusAPI.handleLiveStreamingResponse(s);
         }
 
         @Override
