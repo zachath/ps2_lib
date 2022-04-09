@@ -5,6 +5,7 @@
 import lib.CensusAPI;
 import lib.IllegalServiceIdException;
 import lib.PS2PlayerFactory;
+import lib.event.Event;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
@@ -59,6 +60,7 @@ public class SubscribeTask implements Runnable {
         toBeSent.put("action","subscribe");
         toBeSent.put("service", "event");
 
+        //TODO: Debug, remove.
         System.out.println("Sent: " + toBeSent);
 
         return toBeSent.toString();
@@ -76,7 +78,10 @@ public class SubscribeTask implements Runnable {
 
         @Override
         public void onMessage(String s) {
-            CensusAPI.handleLiveStreamingResponse(s);
+            Event event = CensusAPI.handleLiveStreamingResponse(s);
+            if (event != null) {
+                System.out.println(event);
+            }
         }
 
         @Override

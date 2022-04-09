@@ -21,16 +21,13 @@ public class EventFactory {
      */
     public static Event createEvent(JSONObject object) {
         String event_name = object.getString("event_name");
-        Event event = null;
 
-        if (event_name.equals("PlayerLogin")) {
-            event = new PlayerLoginEvent(object);
-        }
-        else if (event_name.equals("PlayerLogout")) {
-            event = new PlayerLogoutEvent(object);
-        }
-
-        return event;
+        return switch (event_name) {
+            case "PlayerLogin" -> new PlayerLoginEvent(object);
+            case "PlayerLogout" -> new PlayerLogoutEvent(object);
+            case "Death" -> new DeathEvent(object);
+            default -> null;
+        };
     }
 
     /**
@@ -54,7 +51,7 @@ public class EventFactory {
 
         for (Object o : responseArray) {
             JSONObject jsonObject = (JSONObject) o;
-            deaths.add(new DeathEvent(id, jsonObject.getString("attacker_character_id"), jsonObject.getString("is_headshot"), jsonObject.getString("is_critical")));
+            deaths.add(new DeathEvent(jsonObject));
         }
 
         return deaths;
