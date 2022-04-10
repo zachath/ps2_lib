@@ -19,13 +19,13 @@ public class EventFactory {
      * @param object content of payload object.
      * @return an event.
      */
-    public static Event createEvent(JSONObject object) {
+    public static CharacterEvent createEvent(JSONObject object) {
         String event_name = object.getString("event_name");
 
         return switch (event_name) {
-            case "PlayerLogin" -> new PlayerLoginEvent(object);
-            case "PlayerLogout" -> new PlayerLogoutEvent(object);
-            case "Death" -> new DeathEvent(object);
+            case "PlayerLogin" -> new PlayerLoginCharacterEvent(object);
+            case "PlayerLogout" -> new PlayerLogoutCharacterEvent(object);
+            case "Death" -> new DeathCharacterEvent(object);
             default -> null;
         };
     }
@@ -35,11 +35,11 @@ public class EventFactory {
      * @return A list of death events.
      * @throws IllegalServiceIdException if the service id is not set.
      */
-    public static List<DeathEvent> getDeathEvents(String id) throws IllegalServiceIdException {
+    public static List<DeathCharacterEvent> getDeathEvents(String id) throws IllegalServiceIdException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
 
-        List<DeathEvent> deaths = new ArrayList<>();
+        List<DeathCharacterEvent> deaths = new ArrayList<>();
         String query = CensusAPI.getCharacterEventList(id, CensusAPI.GET_MAX_LIMIT, "DEATH");
 
         JSONArray responseArray = new JSONArray();
@@ -51,7 +51,7 @@ public class EventFactory {
 
         for (Object o : responseArray) {
             JSONObject jsonObject = (JSONObject) o;
-            deaths.add(new DeathEvent(jsonObject));
+            deaths.add(new DeathCharacterEvent(jsonObject));
         }
 
         return deaths;

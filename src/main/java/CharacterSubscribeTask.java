@@ -5,7 +5,7 @@
 import lib.CensusAPI;
 import lib.IllegalServiceIdException;
 import lib.PS2PlayerFactory;
-import lib.event.Event;
+import lib.event.CharacterEvent;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
@@ -81,7 +81,7 @@ public class CharacterSubscribeTask implements Runnable {
 
         @Override
         public void onMessage(String s) {
-            Event event = CensusAPI.handleLiveStreamingResponse(s);
+            CharacterEvent event = CensusAPI.handleLiveStreamingResponse(s);
             if (event != null) {
                 System.out.println(event);
             }

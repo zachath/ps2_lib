@@ -1,24 +1,20 @@
-//Zacharias Thorell
+//Zacharias
 
 package lib.event;
 
 import org.json.JSONObject;
 
+/**
+ * Any event.
+ */
 public abstract class Event {
-    protected String playerID;
+    protected final String eventName;
 
-    protected Event(String player) {
-        this.playerID = player;
+    protected Event(String eventName) {
+        this.eventName = eventName;
     }
 
     protected Event(JSONObject object) {
-        this.playerID = object.getString("character_id");
+        this.eventName = object.getString("event_name");
     }
-
-    public String getPlayerID() {
-        return playerID;
-    }
-
-    @Override
-    abstract public String toString();
 }

@@ -2,7 +2,7 @@
 
 package lib;
 
-import lib.event.Event;
+import lib.event.CharacterEvent;
 import lib.event.EventFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,7 +154,7 @@ public class CensusAPI {
      * Creates a JSONObject for every response which contains a payload (response to query).
      * @param response the JSON response sent by the API websocket.
      */
-    public static Event handleLiveStreamingResponse(String response) {
+    public static CharacterEvent handleLiveStreamingResponse(String response) {
         JSONObject object = new JSONObject(response);
 
         try {
