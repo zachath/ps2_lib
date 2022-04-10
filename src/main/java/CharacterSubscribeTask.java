@@ -14,27 +14,30 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class SubscribeTask implements Runnable {
+public class CharacterSubscribeTask implements Runnable {
     private static LiveStreamingClient CLIENT;
     private static boolean CONNECTED;
 
-    private final String characterId;
+    private final List<String> characterIds = new ArrayList<>();
     private final List<String> events = new ArrayList<>();
 
-    public SubscribeTask(String characterName, Collection<String> events) throws URISyntaxException, IllegalServiceIdException {
+    public CharacterSubscribeTask(Collection<String> characterNames, Collection<String> events) throws URISyntaxException, IllegalServiceIdException {
         if (CLIENT == null) {
             CLIENT = new LiveStreamingClient(new URI(CensusAPI.getEventStreamingUrl()));
         }
-        this.characterId = PS2PlayerFactory.createPlayer(characterName).getId();
+
+        for (String characterName : characterNames) {
+            characterIds.add(PS2PlayerFactory.createPlayer(characterName).getId());
+        }
+
         this.events.addAll(events);
     }
 
-    public SubscribeTask(String characterName, String event) throws URISyntaxException, IllegalServiceIdException {
-        this(characterName, List.of(event));
+    public CharacterSubscribeTask(String characterName, String event) throws URISyntaxException, IllegalServiceIdException {
+        this(List.of(characterName), List.of(event));
     }
 
     @Override
@@ -48,15 +51,15 @@ public class SubscribeTask implements Runnable {
             CONNECTED = true;
         }
 
-        CLIENT.send(formatPayLoad(characterId, events));
+        CLIENT.send(formatPayLoad(characterIds, events));
     }
 
     //TODO: move to API.
-    private static String formatPayLoad(String characterId, Collection<String> events) {
+    private static String formatPayLoad(Collection<String> characterIds, Collection<String> events) {
         JSONObject toBeSent = new JSONObject();
 
         toBeSent.put("eventNames", new JSONArray(events));
-        toBeSent.put("characters", new JSONArray().put(characterId));
+        toBeSent.put("characters", new JSONArray(characterIds));
         toBeSent.put("action","subscribe");
         toBeSent.put("service", "event");
 
