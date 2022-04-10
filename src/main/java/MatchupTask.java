@@ -24,8 +24,8 @@ public class MatchupTask implements Runnable {
         PS2Player player2 = null;
 
         try {
-            player1 = PS2PlayerFactory.createPlayer(playerName1);
-            player2 = PS2PlayerFactory.createPlayer(playerName2);
+            player1 = PS2PlayerFactory.createPlayerFromName(playerName1);
+            player2 = PS2PlayerFactory.createPlayerFromName(playerName2);
         } catch (IllegalServiceIdException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {

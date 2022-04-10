@@ -25,7 +25,7 @@ public class LookupTask implements Runnable {
 
         PS2Player player;
         try {
-            player = PS2PlayerFactory.createPlayer(name);
+            player = PS2PlayerFactory.createPlayerFromName(name);
         } catch (IllegalServiceIdException e) {
             e.printStackTrace();
             return;

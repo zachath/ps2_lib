@@ -12,13 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-//TODO: logger and debug.
-//TODO: Map world id to their names.
+import java.util.*;
 
 /**
  * Values related to the Census API and Planetside 2.
@@ -68,10 +62,17 @@ public class CensusAPI {
     }
 
     /**
-     * @return the base url for a get_character request.
+     * @return the base url for a get_character request based on name.
      */
-    public static String getGetCharacterURL(String name, String filters) {
+    public static String getCharacterFromNameURL(String name, String filters) {
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?name.first_lower=" + name + filters;
+    }
+
+    /**
+     * @return the base url for a get_character request based on id.
+     */
+    public static String getCharacterFromIdURL(String id, String filters) {
+        return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?character_id=" + id + filters;
     }
 
     /**
@@ -161,5 +162,22 @@ public class CensusAPI {
             JSONObject payload = object.getJSONObject("payload");
             return EventFactory.createEvent(payload);
         } catch (JSONException ignored) {return null;} //Ignore messages from the API that is not in response to subscription.
+    }
+
+    /**
+     * Formats the subscription payload.
+     * @param characterIds the characters to subscribe to.
+     * @param events the events to subscribe to.
+     * @return JSONObject as string.
+     */
+    public static String formatPayLoad(Collection<String> characterIds, Collection<String> events) {
+        JSONObject toBeSent = new JSONObject();
+
+        toBeSent.put("eventNames", new JSONArray(events));
+        toBeSent.put("characters", new JSONArray(characterIds));
+        toBeSent.put("action","subscribe");
+        toBeSent.put("service", "event");
+
+        return toBeSent.toString();
     }
 }

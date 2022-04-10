@@ -1,21 +1,19 @@
 //Zacharias Thorell
 
-//Dummy: {"service":"event","action":"help"}
-
 import lib.CensusAPI;
 import lib.IllegalServiceIdException;
 import lib.PS2PlayerFactory;
 import lib.event.CharacterEvent;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static lib.CensusAPI.formatPayLoad;
 
 public class CharacterSubscribeTask implements Runnable {
     private static LiveStreamingClient CLIENT;
@@ -30,7 +28,7 @@ public class CharacterSubscribeTask implements Runnable {
         }
 
         for (String characterName : characterNames) {
-            characterIds.add(PS2PlayerFactory.createPlayer(characterName).getId());
+            characterIds.add(PS2PlayerFactory.createPlayerFromName(characterName).getId());
         }
 
         this.events.addAll(events);
@@ -52,21 +50,6 @@ public class CharacterSubscribeTask implements Runnable {
         }
 
         CLIENT.send(formatPayLoad(characterIds, events));
-    }
-
-    //TODO: move to API.
-    private static String formatPayLoad(Collection<String> characterIds, Collection<String> events) {
-        JSONObject toBeSent = new JSONObject();
-
-        toBeSent.put("eventNames", new JSONArray(events));
-        toBeSent.put("characters", new JSONArray(characterIds));
-        toBeSent.put("action","subscribe");
-        toBeSent.put("service", "event");
-
-        //TODO: Debug, remove.
-        System.out.println("Sent: " + toBeSent);
-
-        return toBeSent.toString();
     }
 
     private static class LiveStreamingClient extends WebSocketClient {

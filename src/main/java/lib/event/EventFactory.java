@@ -22,7 +22,6 @@ public class EventFactory {
     public static CharacterEvent createEvent(JSONObject object) {
         String event_name = object.getString("event_name");
 
-        //TODO: "all" sub to all events.
         return switch (event_name) {
             case "PlayerLogin" -> new PlayerLoginCharacterEvent(object);
             case "PlayerLogout" -> new PlayerLogoutCharacterEvent(object);

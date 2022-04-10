@@ -7,19 +7,12 @@ package lib;
  */
 public class PS2Player {
     /*Values that cannot change*/
-    private final String id;
-    private final String name;
-    private final Faction faction;
-    private final String creationDate;
+    public final String id, name, creationDate;
+    public final Faction faction;
 
     /*Values that can change with the call of update()*/
     private boolean online;
-    private int logins;
-    private int battleRank;
-    private int minutesPlayed;
-    private int hoursPlayed;
-    private int totalCerts;
-    private int availableCerts;
+    private int logins, battleRank, minutesPlayed, hoursPlayed, totalCerts, availableCerts;
 
     protected PS2Player(String id, String name, Faction faction, String creationDate, boolean online, int logins, int battleRank,
                         int minutesPlayed, int hoursPlayed, int totalCerts, int availableCerts) {
@@ -43,7 +36,7 @@ public class PS2Player {
      */
     public void update() {
         try {
-            PS2Player player = PS2PlayerFactory.createPlayer(name);
+            PS2Player player = PS2PlayerFactory.createPlayerFromName(name);
             online = player.online;
             logins = player.logins;
             minutesPlayed = player.minutesPlayed;
@@ -98,5 +91,26 @@ public class PS2Player {
 
     public int getAvailableCerts() {
         return availableCerts;
+    }
+
+    /**
+     * To characters are equal if they have the same id.
+     * @param other Object to compare with.
+     * @return if equal or not.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof PS2Player ps2Player) {
+            return this.id.equals(ps2Player.id);
+        }
+        return false;
+    }
+
+    /**
+     * @return the hashcode of the id.
+     */
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
     }
 }

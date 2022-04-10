@@ -5,13 +5,33 @@ package lib;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-//Todo: create player from id.
+import java.io.IOException;
 
 /**
  * A class creating PS2Player instances.
  */
 public class PS2PlayerFactory {
     private static final String FILTERS = CensusAPI.SHOW_FILTER + "character_id,name,faction_id,times,certs,battle_rank";
+
+    public static PS2Player createPlayerFromId(String id) throws IllegalServiceIdException, IllegalArgumentException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
+
+        String query = CensusAPI.getCharacterFromIdURL(id, FILTERS);
+        try {
+            JSONObject responseObject;
+            try {
+                responseObject = CensusAPI.getResponseObject(query, "character_list");
+            } catch (JSONException e) { //Catch if no user found.
+                throw new IllegalArgumentException("Player \"" + id + "\" not found.");
+            }
+
+            String name = responseObject.getJSONObject("name").getString("first");
+            return createPlayer(responseObject, id, name);
+
+        } catch (Exception e) {e.printStackTrace();}
+        throw new IllegalArgumentException("Failed to create PS2Player");
+    }
 
     /**
      * Creates a PS2Player instance if existing.
@@ -20,11 +40,11 @@ public class PS2PlayerFactory {
      * @throws IllegalServiceIdException if the service id is not set.
      * @throws IllegalArgumentException if the player could not be found.
      */
-    public static PS2Player createPlayer(String name) throws IllegalServiceIdException, IllegalArgumentException {
+    public static PS2Player createPlayerFromName(String name) throws IllegalServiceIdException, IllegalArgumentException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
 
-        String query = CensusAPI.getGetCharacterURL(name.toLowerCase(), FILTERS);
+        String query = CensusAPI.getCharacterFromNameURL(name.toLowerCase(), FILTERS);
         try {
 
             JSONObject responseObject;
@@ -35,31 +55,35 @@ public class PS2PlayerFactory {
             }
 
             String playerId = responseObject.getString("character_id");
-            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL(playerId);
-
-            JSONObject responseObjectID = null;
-            try {
-                responseObjectID = CensusAPI.getResponseObject(isOnlineQuery, "characters_online_status_list");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            String idResponse = responseObjectID.getString("online_status");
-            boolean isOnline = idResponse.equals("1");
-
-            int battleRank = Integer.parseInt(responseObject.getJSONObject("battle_rank").getString("value"));
-            int minutesPlayed = Integer.parseInt((String) responseObject.getJSONObject("times").get("minutes_played"));
-            int hoursPlayed = minutesPlayed / 60;
-            int totalCerts = Integer.parseInt((String) responseObject.getJSONObject("certs").get("earned_points")) + Integer.parseInt((String) responseObject.getJSONObject("certs").get("gifted_points"));
-            int availableCerts = Integer.parseInt((String) responseObject.getJSONObject("certs").get("available_points"));
-            Faction faction = CensusAPI.FACTION_MAP.get(responseObject.getString("faction_id"));
-            int logins = Integer.parseInt(responseObject.getJSONObject("times").getString("login_count"));
-            String created = responseObject.getJSONObject("times").getString("creation_date");
-
-            return new PS2Player(playerId, name, faction, created, isOnline, logins, battleRank, minutesPlayed, hoursPlayed, totalCerts, availableCerts);
+            return createPlayer(responseObject, playerId, name);
         } catch (Exception e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("Failed to create PS2Player");
+    }
+
+    private static PS2Player createPlayer(JSONObject responseObject, String id, String name) {
+        String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL(id);
+
+        JSONObject responseObjectID = null;
+        try {
+            responseObjectID = CensusAPI.getResponseObject(isOnlineQuery, "characters_online_status_list");
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+
+        String idResponse = responseObjectID.getString("online_status");
+        boolean isOnline = idResponse.equals("1");
+
+        int battleRank = Integer.parseInt(responseObject.getJSONObject("battle_rank").getString("value"));
+        int minutesPlayed = Integer.parseInt((String) responseObject.getJSONObject("times").get("minutes_played"));
+        int hoursPlayed = minutesPlayed / 60;
+        int totalCerts = Integer.parseInt((String) responseObject.getJSONObject("certs").get("earned_points")) + Integer.parseInt((String) responseObject.getJSONObject("certs").get("gifted_points"));
+        int availableCerts = Integer.parseInt((String) responseObject.getJSONObject("certs").get("available_points"));
+        Faction faction = CensusAPI.FACTION_MAP.get(responseObject.getString("faction_id"));
+        int logins = Integer.parseInt(responseObject.getJSONObject("times").getString("login_count"));
+        String created = responseObject.getJSONObject("times").getString("creation_date");
+
+        return new PS2Player(id, name, faction, created, isOnline, logins, battleRank, minutesPlayed, hoursPlayed, totalCerts, availableCerts);
     }
 }
