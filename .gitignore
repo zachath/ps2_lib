@@ -2,4 +2,4 @@
 *.class
 *.iml
 /out
-src/main/java/META-INF
+Console.java

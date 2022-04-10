@@ -5,6 +5,8 @@ package lib;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+//Todo: create player from id.
+
 /**
  * A class creating PS2Player instances.
  */
@@ -22,7 +24,7 @@ public class PS2PlayerFactory {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
 
-        String query = CensusAPI.getGetCharacterURL() + name + FILTERS;
+        String query = CensusAPI.getGetCharacterURL(name.toLowerCase(), FILTERS);
         try {
 
             JSONObject responseObject;
@@ -33,7 +35,7 @@ public class PS2PlayerFactory {
             }
 
             String playerId = responseObject.getString("character_id");
-            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL() + playerId;
+            String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL(playerId);
 
             JSONObject responseObjectID = null;
             try {
