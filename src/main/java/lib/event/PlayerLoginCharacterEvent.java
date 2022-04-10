@@ -7,18 +7,13 @@ import org.json.JSONObject;
 public class PlayerLoginCharacterEvent extends CharacterEvent {
 
     private static final String EVENT_NAME = "PlayerLogin";
-    public final String world_id, timestamp;
 
     public PlayerLoginCharacterEvent(String playerId, String world_id, String timestamp) {
-        super(EVENT_NAME, playerId);
-        this.world_id = world_id;
-        this.timestamp = timestamp;
+        super(EVENT_NAME, world_id, timestamp, playerId);
     }
 
     public PlayerLoginCharacterEvent(JSONObject object) {
         super(object);
-        this.world_id = object.getString("world_id");
-        this.timestamp = object.getString("timestamp");
     }
 
     @Override

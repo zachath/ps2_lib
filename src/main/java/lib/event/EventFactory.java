@@ -22,10 +22,20 @@ public class EventFactory {
     public static CharacterEvent createEvent(JSONObject object) {
         String event_name = object.getString("event_name");
 
+        //TODO: "all" sub to all events.
         return switch (event_name) {
             case "PlayerLogin" -> new PlayerLoginCharacterEvent(object);
             case "PlayerLogout" -> new PlayerLogoutCharacterEvent(object);
             case "Death" -> new DeathCharacterEvent(object);
+            case "AchievementEarned" -> new AchievementEarnedCharacterEvent(object);
+            case "BattleRankUp" -> new BattleRankUpCharacterEvent(object);
+            case "FacilityControl" -> new FacilityControlCharacterEvent(object);
+            case "GainExperience" -> new GainExperienceCharacterEvent(object);
+            case "ItemAdded" -> new ItemAdded(object);
+            case "PlayerFacilityCapture" -> new PlayerFacilityCaptureCharacterEvent(object);
+            case "PlayerFacilityDefend" -> new PlayerFacilityDefendCharacterEvent(object);
+            case "SkillAdded" -> new SkillAddedCharacterEvent(object);
+            case "VehicleDestroy" -> new VehicleDestroyCharacterEvent(object);
             default -> null;
         };
     }

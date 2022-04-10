@@ -10,8 +10,8 @@ import org.json.JSONObject;
 public abstract class CharacterEvent extends Event {
     public final String characterID;
 
-    protected CharacterEvent(String eventName, String player) {
-        super(eventName);
+    protected CharacterEvent(String eventName, String world_id, String timestamp, String player) {
+        super(eventName, world_id, timestamp);
         this.characterID = player;
     }
 

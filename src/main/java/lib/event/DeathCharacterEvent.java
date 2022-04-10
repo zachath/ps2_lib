@@ -10,8 +10,8 @@ public class DeathCharacterEvent extends CharacterEvent {
     public final String attackerId;
     public final boolean headshot;
 
-    public DeathCharacterEvent(String playerId, String attacker, String headshot) {
-        super(EVENT_NAME, playerId);
+    public DeathCharacterEvent(String world_id, String timestamp, String playerId, String attacker, String headshot) {
+        super(EVENT_NAME, world_id, timestamp, playerId);
         this.attackerId = attacker;
         this.headshot = headshot.equals("1");
     }

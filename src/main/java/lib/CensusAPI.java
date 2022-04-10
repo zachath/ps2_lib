@@ -33,7 +33,7 @@ public class CensusAPI {
 
     //Valid character events that it is possible to subscribe to.
     //WARNING: GainExperience occurs VERY frequently (unless player is completely incompetent).
-    public static final List<String> VALID_SUBSCRIBE_CHARACTER_EVENTS = Arrays.asList("AchievementEarned", "BattleRankUp", "Death", "FacilityControl", "GainExperience", "ItemAdded", "MetagameEvent", "PlayerFacilityCapture", "PlayerFacilityDefend", "PlayerLogin", "PlayerLogout", "SkillAdded", "VehicleDestroy");
+    public static final List<String> VALID_SUBSCRIBE_CHARACTER_EVENTS = Arrays.asList("AchievementEarned", "BattleRankUp", "Death", "FacilityControl", "GainExperience", "ItemAdded", "PlayerFacilityCapture", "PlayerFacilityDefend", "PlayerLogin", "PlayerLogout", "SkillAdded", "VehicleDestroy");
 
     //Valid world-level events that it is possible to subscribe to.
     public static final List<String> VALID_SUBSCRIBE_WORLD_EVENTS = Arrays.asList("ContinentLock", "ContinentUnlock", "FacilityControl", "MetagameEvent");
