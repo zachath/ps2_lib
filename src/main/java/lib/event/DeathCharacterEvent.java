@@ -5,7 +5,7 @@ package lib.event;
 import org.json.JSONObject;
 
 public class DeathCharacterEvent extends CharacterEvent {
-    private static final String EVENT_NAME = "Death";
+    public static final String EVENT_NAME = "Death";
 
     public final String attackerId;
     public final boolean headshot;

@@ -5,7 +5,7 @@ package lib.event;
 import org.json.JSONObject;
 
 public class ItemAdded extends CharacterEvent {
-    private static final String EVENT_NAME = "ItemAdded";
+    public static final String EVENT_NAME = "ItemAdded";
 
     public final String context, itemCount, itemID;
 

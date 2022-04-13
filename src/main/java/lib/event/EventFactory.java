@@ -23,18 +23,18 @@ public class EventFactory {
         String event_name = object.getString("event_name");
 
         return switch (event_name) {
-            case "PlayerLogin" -> new PlayerLoginCharacterEvent(object);
-            case "PlayerLogout" -> new PlayerLogoutCharacterEvent(object);
-            case "Death" -> new DeathCharacterEvent(object);
-            case "AchievementEarned" -> new AchievementEarnedCharacterEvent(object);
-            case "BattleRankUp" -> new BattleRankUpCharacterEvent(object);
-            case "FacilityControl" -> new FacilityControlCharacterEvent(object);
-            case "GainExperience" -> new GainExperienceCharacterEvent(object);
-            case "ItemAdded" -> new ItemAdded(object);
-            case "PlayerFacilityCapture" -> new PlayerFacilityCaptureCharacterEvent(object);
-            case "PlayerFacilityDefend" -> new PlayerFacilityDefendCharacterEvent(object);
-            case "SkillAdded" -> new SkillAddedCharacterEvent(object);
-            case "VehicleDestroy" -> new VehicleDestroyCharacterEvent(object);
+            case PlayerLoginCharacterEvent.EVENT_NAME -> new PlayerLoginCharacterEvent(object);
+            case PlayerLogoutCharacterEvent.EVENT_NAME -> new PlayerLogoutCharacterEvent(object);
+            case DeathCharacterEvent.EVENT_NAME -> new DeathCharacterEvent(object);
+            case AchievementEarnedCharacterEvent.EVENT_NAME-> new AchievementEarnedCharacterEvent(object);
+            case BattleRankUpCharacterEvent.EVENT_NAME -> new BattleRankUpCharacterEvent(object);
+            case FacilityControlCharacterEvent.EVENT_NAME -> new FacilityControlCharacterEvent(object);
+            case GainExperienceCharacterEvent.EVENT_NAME -> new GainExperienceCharacterEvent(object);
+            case ItemAdded.EVENT_NAME -> new ItemAdded(object);
+            case PlayerFacilityCaptureCharacterEvent.EVENT_NAME -> new PlayerFacilityCaptureCharacterEvent(object);
+            case PlayerFacilityDefendCharacterEvent.EVENT_NAME -> new PlayerFacilityDefendCharacterEvent(object);
+            case SkillAddedCharacterEvent.EVENT_NAME -> new SkillAddedCharacterEvent(object);
+            case VehicleDestroyCharacterEvent.EVENT_NAME -> new VehicleDestroyCharacterEvent(object);
             default -> null;
         };
     }

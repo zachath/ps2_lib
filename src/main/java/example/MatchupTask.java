@@ -1,4 +1,4 @@
-//Zacharias Thorell
+package example;//Zacharias Thorell
 
 import lib.*;
 import lib.event.DeathCharacterEvent;

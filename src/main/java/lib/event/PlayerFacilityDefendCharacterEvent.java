@@ -5,7 +5,7 @@ package lib.event;
 import org.json.JSONObject;
 
 public class PlayerFacilityDefendCharacterEvent extends CharacterEvent {
-    private static final String EVENT_NAME = "PlayerFacilityDefend";
+    public static final String EVENT_NAME = "PlayerFacilityDefend";
 
     public final String facilityID, outfitID;
 

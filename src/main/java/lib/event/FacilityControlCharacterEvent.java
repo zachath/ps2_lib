@@ -7,7 +7,7 @@ import lib.Faction;
 import org.json.JSONObject;
 
 public class FacilityControlCharacterEvent extends CharacterEvent {
-    private static final String EVENT_NAME = "FacilityControl";
+    public static final String EVENT_NAME = "FacilityControl";
 
     public final String durationHeld, facilityID, outfitID;
     public final Faction newFaction, oldFaction;

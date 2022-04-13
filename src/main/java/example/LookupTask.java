@@ -1,4 +1,4 @@
-//Zacharias Thorell
+package example;//Zacharias Thorell
 
 import lib.IllegalServiceIdException;
 import lib.PS2Player;

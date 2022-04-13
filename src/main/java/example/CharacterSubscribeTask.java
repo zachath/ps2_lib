@@ -1,9 +1,12 @@
-//Zacharias Thorell
+package example;//Zacharias Thorell
 
 import lib.CensusAPI;
 import lib.IllegalServiceIdException;
 import lib.PS2PlayerFactory;
 import lib.event.CharacterEvent;
+import lib.event.DeathCharacterEvent;
+import lib.event.PlayerLoginCharacterEvent;
+import lib.event.PlayerLogoutCharacterEvent;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -16,6 +19,11 @@ import java.util.List;
 import static lib.CensusAPI.formatPayLoad;
 
 public class CharacterSubscribeTask implements Runnable {
+    public static void main(String[] args) throws IllegalServiceIdException, URISyntaxException {
+        CensusAPI.setServiceId("TorranPS2Util");
+        new CharacterSubscribeTask(List.of("SgtTorranVS"), List.of(PlayerLoginCharacterEvent.EVENT_NAME, PlayerLogoutCharacterEvent.EVENT_NAME, DeathCharacterEvent.EVENT_NAME)).run();
+    }
+
     private static LiveStreamingClient CLIENT;
     private static boolean CONNECTED;
 

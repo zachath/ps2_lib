@@ -5,7 +5,7 @@ package lib.event;
 import org.json.JSONObject;
 
 public class VehicleDestroyCharacterEvent extends CharacterEvent {
-    private static final String EVENT_NAME = "VehicleDestroy";
+    public static final String EVENT_NAME = "VehicleDestroy";
 
     public final String attackerId, vehicleID;
 

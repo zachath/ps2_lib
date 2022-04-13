@@ -5,7 +5,7 @@ package lib.event;
 import org.json.JSONObject;
 
 public class PlayerLogoutCharacterEvent extends CharacterEvent {
-    private static final String EVENT_NAME = "PlayerLogout";
+    public static final String EVENT_NAME = "PlayerLogout";
 
     public PlayerLogoutCharacterEvent(String playerId, String world_id, String timestamp) {
         super(EVENT_NAME, world_id, timestamp, playerId);
