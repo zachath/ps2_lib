@@ -4,6 +4,9 @@ package lib.event;
 
 import org.json.JSONObject;
 
+/**
+ * An event generated when a character achieves an achievement.
+ */
 public class AchievementEarnedCharacterEvent extends CharacterEvent {
     public static final String EVENT_NAME = "AchievementEarned";
 

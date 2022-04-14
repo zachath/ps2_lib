@@ -17,8 +17,9 @@ public abstract class Event {
     }
 
     protected Event(JSONObject object) {
-        this.eventName = object.getString("event_name");
-        this.world_id = object.getString("world_id");
-        this.timestamp = object.getString("timestamp");
+        this(object.getString("event_name"), object.getString("world_id"), object.getString("timestamp"));
     }
+
+    @Override
+    abstract public String toString();
 }

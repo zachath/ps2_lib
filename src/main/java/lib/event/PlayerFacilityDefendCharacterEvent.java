@@ -4,6 +4,9 @@ package lib.event;
 
 import org.json.JSONObject;
 
+/**
+ * An event generated when a character defends a facility.
+ */
 public class PlayerFacilityDefendCharacterEvent extends CharacterEvent {
     public static final String EVENT_NAME = "PlayerFacilityDefend";
 

@@ -4,6 +4,9 @@ package lib.event;
 
 import org.json.JSONObject;
 
+/**
+ * An event generated when a character logins in.
+ */
 public class PlayerLoginCharacterEvent extends CharacterEvent {
 
     public static final String EVENT_NAME = "PlayerLogin";

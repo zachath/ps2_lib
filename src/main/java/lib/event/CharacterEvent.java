@@ -19,7 +19,4 @@ public abstract class CharacterEvent extends Event {
         super(object);
         this.characterID = object.getString("character_id");
     }
-
-    @Override
-    abstract public String toString();
 }

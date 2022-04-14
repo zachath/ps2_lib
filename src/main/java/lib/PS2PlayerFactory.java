@@ -13,6 +13,13 @@ import java.io.IOException;
 public class PS2PlayerFactory {
     private static final String FILTERS = CensusAPI.SHOW_FILTER + "character_id,name,faction_id,times,certs,battle_rank";
 
+    /**
+     * Creates a PS2Player instance if existing.
+     * @param id The ID of the player.
+     * @return a PS2Player.
+     * @throws IllegalServiceIdException if the service id is not set.
+     * @throws IllegalArgumentException if the player could not be found.
+     */
     public static PS2Player createPlayerFromId(String id) throws IllegalServiceIdException, IllegalArgumentException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();

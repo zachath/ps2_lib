@@ -1,4 +1,6 @@
-package example;//Zacharias Thorell
+//Zacharias Thorell
+
+package example;
 
 import lib.*;
 import lib.event.DeathCharacterEvent;
@@ -11,6 +13,14 @@ import java.util.List;
  * Retrieves the 1000 (API limit) most recent DEATH events of player1 and creates a matchup with player2
  */
 public class MatchupTask implements Runnable {
+    public static void main(String[] args) {
+        //Setting the service id, which is required.
+        CensusAPI.setServiceId("TorranPS2Util");
+
+        //Matchup betwen SgtTorran (me) and xxArtikxx (he kills me so often, how does he always find me in a game this big?!)
+        new MatchupTask("SgtTorran", "xxArtikxx").run();
+    }
+
     private final String playerName1, playerName2;
 
     public MatchupTask(String playerName1, String playerName2) {

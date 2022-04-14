@@ -1,15 +1,20 @@
-package example;//Zacharias Thorell
+//Zacharias Thorell
 
-import lib.IllegalServiceIdException;
-import lib.PS2Player;
-import lib.PS2PlayerFactory;
-import lib.Util;
+package example;
+
+import lib.*;
 
 /**
  * The task of looking up a player
  * Should be run in another thread in case of long response time.
  */
 public class LookupTask implements Runnable {
+    public static void main(String[] args) {
+        //Setting the service id, which is required.
+        CensusAPI.setServiceId("TorranPS2Util");
+
+        new LookupTask("SgtTorranVS").run();
+    }
 
     private final String name;
     public LookupTask(String name) {

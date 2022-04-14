@@ -1,5 +1,4 @@
 # Planetside 2 api lib
-### Version 0.5
 ### Zacharias Thorell
 ### Built using the [Census API](http://census.daybreakgames.com/) provided by [Daybreak Games](https://www.daybreakgames.com/home).
 

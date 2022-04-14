@@ -2,7 +2,7 @@
 
 package lib;
 
-import lib.event.CharacterEvent;
+import lib.event.Event;
 import lib.event.EventFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -155,7 +155,7 @@ public class CensusAPI {
      * Creates a JSONObject for every response which contains a payload (response to query).
      * @param response the JSON response sent by the API websocket.
      */
-    public static CharacterEvent handleLiveStreamingResponse(String response) {
+    public static Event handleLiveStreamingResponse(String response) {
         JSONObject object = new JSONObject(response);
 
         try {
@@ -170,11 +170,28 @@ public class CensusAPI {
      * @param events the events to subscribe to.
      * @return JSONObject as string.
      */
-    public static String formatPayLoad(Collection<String> characterIds, Collection<String> events) {
+    public static String formatPayLoadCharacter(Collection<String> characterIds, Collection<String> events) {
         JSONObject toBeSent = new JSONObject();
 
         toBeSent.put("eventNames", new JSONArray(events));
         toBeSent.put("characters", new JSONArray(characterIds));
+        toBeSent.put("action","subscribe");
+        toBeSent.put("service", "event");
+
+        return toBeSent.toString();
+    }
+
+    /**
+     * Formats the subscription payload.
+     * @param worlds the worlds to subscribe to.
+     * @param events the events to subscribe to.
+     * @return JSONObject as string.
+     */
+    public static String formatPayLoadWorld(Collection<String> worlds, Collection<String> events) {
+        JSONObject toBeSent = new JSONObject();
+
+        toBeSent.put("eventNames", new JSONArray(events));
+        toBeSent.put("worlds", new JSONArray(worlds));
         toBeSent.put("action","subscribe");
         toBeSent.put("service", "event");
 

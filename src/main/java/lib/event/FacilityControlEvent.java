@@ -6,14 +6,18 @@ import lib.CensusAPI;
 import lib.Faction;
 import org.json.JSONObject;
 
-public class FacilityControlCharacterEvent extends CharacterEvent {
+/**
+ * An event generated when a facility switches control.
+ */
+public class FacilityControlEvent extends Event {
     public static final String EVENT_NAME = "FacilityControl";
 
-    public final String durationHeld, facilityID, outfitID;
+    public final String zoneID, durationHeld, facilityID, outfitID;
     public final Faction newFaction, oldFaction;
 
-    protected FacilityControlCharacterEvent(String world_id, String timestamp, String player, String durationHeld, String facilityID, String outfitID, Faction newFaction, Faction oldFaction) {
-        super(EVENT_NAME, world_id, timestamp, player);
+    protected FacilityControlEvent(String world_id, String timestamp, String zoneID, String durationHeld, String facilityID, String outfitID, Faction newFaction, Faction oldFaction) {
+        super(EVENT_NAME, world_id, timestamp);
+        this.zoneID = zoneID;
         this.durationHeld = durationHeld;
         this.facilityID = facilityID;
         this.outfitID = outfitID;
@@ -21,8 +25,9 @@ public class FacilityControlCharacterEvent extends CharacterEvent {
         this.oldFaction = oldFaction;
     }
 
-    protected FacilityControlCharacterEvent(JSONObject object) {
+    protected FacilityControlEvent(JSONObject object) {
         super(object);
+        this.zoneID = object.getString("zone_id");
         this.durationHeld = object.getString("duration_held");
         this.facilityID = object.getString("facility_id");
         this.outfitID = object.getString("outfit_id");
@@ -32,6 +37,6 @@ public class FacilityControlCharacterEvent extends CharacterEvent {
 
     @Override
     public String toString() {
-        return characterID + " controlled facility " + facilityID;
+        return EVENT_NAME + " - outfit: " + outfitID + " facility: " + facilityID + " duration: " + durationHeld + " zone: " + zoneID + " old faction: " + oldFaction + " new faction: " + newFaction;
     }
 }
