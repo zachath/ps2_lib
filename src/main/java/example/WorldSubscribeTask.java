@@ -41,10 +41,9 @@ public class WorldSubscribeTask implements Runnable {
     public void run() {
         try {
             CLIENT.connectBlocking();
-        } catch (InterruptedException e) {
+            CLIENT.send(formatPayLoadWorld(worlds, events));
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        CLIENT.send(formatPayLoadWorld(worlds, events));
     }
 }

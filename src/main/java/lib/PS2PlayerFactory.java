@@ -21,9 +21,6 @@ public class PS2PlayerFactory {
      * @throws IllegalArgumentException if the player could not be found.
      */
     public static PS2Player createPlayerFromId(String id) throws IllegalServiceIdException, IllegalArgumentException {
-        if (!CensusAPI.serviceIDIsSet())
-            throw new IllegalServiceIdException();
-
         String query = CensusAPI.getCharacterFromIdURL(id, FILTERS);
         try {
             JSONObject responseObject;
@@ -48,9 +45,6 @@ public class PS2PlayerFactory {
      * @throws IllegalArgumentException if the player could not be found.
      */
     public static PS2Player createPlayerFromName(String name) throws IllegalServiceIdException, IllegalArgumentException {
-        if (!CensusAPI.serviceIDIsSet())
-            throw new IllegalServiceIdException();
-
         String query = CensusAPI.getCharacterFromNameURL(name.toLowerCase(), FILTERS);
         try {
 
@@ -69,13 +63,13 @@ public class PS2PlayerFactory {
         throw new IllegalArgumentException("Failed to create PS2Player");
     }
 
-    private static PS2Player createPlayer(JSONObject responseObject, String id, String name) {
+    private static PS2Player createPlayer(JSONObject responseObject, String id, String name) throws IllegalServiceIdException {
         String isOnlineQuery = CensusAPI.getGetCharacterOnlineStatusURL(id);
 
         JSONObject responseObjectID = null;
         try {
             responseObjectID = CensusAPI.getResponseObject(isOnlineQuery, "characters_online_status_list");
-        } catch (JSONException | IOException e) {
+        } catch (JSONException | IOException | IllegalServiceIdException e) {
             e.printStackTrace();
         }
 

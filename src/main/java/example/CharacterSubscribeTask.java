@@ -51,10 +51,9 @@ public class CharacterSubscribeTask implements Runnable {
     public void run() {
         try {
             CLIENT.connectBlocking();
-        } catch (InterruptedException e) {
+            CLIENT.send(formatPayLoadCharacter(characterIds, events));
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        CLIENT.send(formatPayLoadCharacter(characterIds, events));
     }
 }

@@ -32,7 +32,9 @@ public class CensusAPI {
     //Valid world-level events that it is possible to subscribe to.
     public static final List<String> VALID_SUBSCRIBE_WORLD_EVENTS = Arrays.asList("ContinentLock", "ContinentUnlock", "FacilityControl", "MetagameEvent");
 
-    //Unsubscribe from all events.
+    /**
+     * Used to unsubscribe to all events, send it and the connection will remain open, however no more messages will be received from the API.
+     */
     public static final String CLEAR_SUBSCRIBE = "{\"action\":\"clearSubscribe\",\"all\":\"true\",\"service\":\"event\"}";
 
     private static final String AND = "&";
@@ -57,28 +59,34 @@ public class CensusAPI {
      * Checks whether the Service ID has been set.
      * @return if the service id has been set.
      */
-    public static boolean serviceIDIsSet() {
+    private static boolean serviceIDIsSet() {
         return SERVICE_ID != null;
     }
 
     /**
      * @return the base url for a get_character request based on name.
      */
-    public static String getCharacterFromNameURL(String name, String filters) {
+    public static String getCharacterFromNameURL(String name, String filters) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?name.first_lower=" + name + filters;
     }
 
     /**
      * @return the base url for a get_character request based on id.
      */
-    public static String getCharacterFromIdURL(String id, String filters) {
+    public static String getCharacterFromIdURL(String id, String filters) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "character/?character_id=" + id + filters;
     }
 
     /**
      * @return the base url for a get characters_online_status request.
      */
-    public static String getGetCharacterOnlineStatusURL(String playerId) {
+    public static String getGetCharacterOnlineStatusURL(String playerId) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "characters_online_status/?character_id=" + playerId;
     }
 
@@ -88,7 +96,9 @@ public class CensusAPI {
      * @param type event type.
      * @return url for specified query.
      */
-    public static String getCharacterEventList(String characterId, int limit, String type) {
+    public static String getCharacterEventList(String characterId, int limit, String type) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         if (limit < 0 || limit > 1000)
             return null;
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "characters_event/?character_id=" + characterId + COMMAND_PREFIX + "limit=" + limit + AND + "type=" + type;
@@ -97,20 +107,10 @@ public class CensusAPI {
     /**
      * @return the url for the event streaming.
      */
-    public static String getEventStreamingUrl() {
-        return EVENT_STREAMING_URL + SERVICE_ID.substring(0, SERVICE_ID.length() - 1); //To remove the final "/" from the Service ID that is used otherwise.
-    }
-
-    /**
-     * Subscribe to single event for single character,
-     * Example subscribe.
-     * {"service":"event","action":"subscribe","characters":["5428926375528770321"],"eventNames":["PlayerLogin", "PlayerLogout"]}
-     * @param characterID id of character.
-     * @param event name of event.
-     * @return JSON string for the specified subscribe.
-     */
-    public static String getCharacterSubscribeJSONPayload(String characterID, String event) {
-        return "{\"service\":\"event\",\"action\":\"subscribe\",\"characters\":[\"" + characterID + "\"], \"eventNames:\"[\"" + event + "\"]}";
+    public static String getEventStreamingUrl() throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
+        return EVENT_STREAMING_URL + SERVICE_ID.substring(0, SERVICE_ID.length() - 1); //Explanation for the '-1': To remove the final "/" from the Service ID that is used otherwise.
     }
 
     /**
@@ -120,10 +120,9 @@ public class CensusAPI {
      * @return JSONObject containing query response.
      * @throws IOException if malformed URL or error in response.
      */
-    public static JSONObject getResponseObject(String query, String key) throws IOException {
-        //Debug print
-        System.out.println(query);
-
+    public static JSONObject getResponseObject(String query, String key) throws IOException, IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         URLConnection connection = new URL(query).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -139,10 +138,9 @@ public class CensusAPI {
      * @return JSONArray containing query response.
      * @throws IOException if malformed URL or error in response.
      */
-    public static JSONArray getResponseArray(String query, String key) throws IOException {
-        //Debug print
-        System.out.println(query);
-
+    public static JSONArray getResponseArray(String query, String key) throws IOException, IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         URLConnection connection = new URL(query).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -155,7 +153,9 @@ public class CensusAPI {
      * Creates a JSONObject for every response which contains a payload (response to query).
      * @param response the JSON response sent by the API websocket.
      */
-    public static Event handleLiveStreamingResponse(String response) {
+    public static Event handleLiveStreamingResponse(String response) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         JSONObject object = new JSONObject(response);
 
         try {
@@ -170,7 +170,9 @@ public class CensusAPI {
      * @param events the events to subscribe to.
      * @return JSONObject as string.
      */
-    public static String formatPayLoadCharacter(Collection<String> characterIds, Collection<String> events) {
+    public static String formatPayLoadCharacter(Collection<String> characterIds, Collection<String> events) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         JSONObject toBeSent = new JSONObject();
 
         toBeSent.put("eventNames", new JSONArray(events));
@@ -187,7 +189,9 @@ public class CensusAPI {
      * @param events the events to subscribe to.
      * @return JSONObject as string.
      */
-    public static String formatPayLoadWorld(Collection<String> worlds, Collection<String> events) {
+    public static String formatPayLoadWorld(Collection<String> worlds, Collection<String> events) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
         JSONObject toBeSent = new JSONObject();
 
         toBeSent.put("eventNames", new JSONArray(events));

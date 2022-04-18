@@ -3,6 +3,7 @@
 package example;
 
 import lib.CensusAPI;
+import lib.IllegalServiceIdException;
 import lib.event.Event;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -24,9 +25,13 @@ public class LiveStreamingClient extends WebSocketClient {
 
     @Override
     public void onMessage(String s) {
-        Event event = CensusAPI.handleLiveStreamingResponse(s);
-        if (event != null) {
-            System.out.println(event);
+        try {
+            Event event = CensusAPI.handleLiveStreamingResponse(s);
+            if (event != null) {
+                System.out.println(event);
+            }
+        } catch (IllegalServiceIdException e) {
+            e.printStackTrace();
         }
     }
 

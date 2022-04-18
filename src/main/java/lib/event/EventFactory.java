@@ -47,9 +47,6 @@ public class EventFactory {
      * @throws IllegalServiceIdException if the service id is not set.
      */
     public static List<DeathCharacterEvent> getDeathEvents(String id) throws IllegalServiceIdException {
-        if (!CensusAPI.serviceIDIsSet())
-            throw new IllegalServiceIdException();
-
         List<DeathCharacterEvent> deaths = new ArrayList<>();
         String query = CensusAPI.getCharacterEventList(id, CensusAPI.GET_MAX_LIMIT, "DEATH");
 
