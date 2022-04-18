@@ -177,7 +177,7 @@ public class CensusAPI {
         toBeSent.put("characters", new JSONArray(characterIds));
         toBeSent.put("action","subscribe");
         toBeSent.put("service", "event");
-
+        System.out.println("Sent: " + toBeSent); //debug
         return toBeSent.toString();
     }
 
@@ -194,7 +194,7 @@ public class CensusAPI {
         toBeSent.put("worlds", new JSONArray(worlds));
         toBeSent.put("action","subscribe");
         toBeSent.put("service", "event");
-
+        System.out.println("Sent: " + toBeSent); //debug
         return toBeSent.toString();
     }
 }

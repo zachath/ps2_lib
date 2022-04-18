@@ -23,7 +23,7 @@ public class CharacterSubscribeTask implements Runnable {
         //Setting the service id, which is required.
         CensusAPI.setServiceId("TorranPS2Util");
 
-        new CharacterSubscribeTask(List.of("SgtTorranVS"), List.of(PlayerLoginCharacterEvent.EVENT_NAME, PlayerLogoutCharacterEvent.EVENT_NAME, DeathCharacterEvent.EVENT_NAME)).run();
+        new CharacterSubscribeTask(List.of("SgtTorran"), List.of(BattleRankUpCharacterEvent.EVENT_NAME, ItemAdded.EVENT_NAME, PlayerFacilityDefendCharacterEvent.EVENT_NAME)).run();
     }
 
     private static LiveStreamingClient CLIENT;

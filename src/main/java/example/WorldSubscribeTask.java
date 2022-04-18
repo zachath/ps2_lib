@@ -20,7 +20,7 @@ import static lib.CensusAPI.formatPayLoadWorld;
 public class WorldSubscribeTask implements Runnable {
     public static void main(String[] args) throws IllegalServiceIdException, URISyntaxException {
         CensusAPI.setServiceId("TorranPS2Util");
-        new WorldSubscribeTask(List.of("10, 13"), List.of(FacilityControlEvent.EVENT_NAME, ContinentUnlockEvent.EVENT_NAME, ContinentLockEvent.EVENT_NAME)).run();
+        new WorldSubscribeTask(List.of("10", "13"), List.of(FacilityControlEvent.EVENT_NAME, ContinentUnlockEvent.EVENT_NAME, ContinentLockEvent.EVENT_NAME)).run();
     }
 
     private static LiveStreamingClient CLIENT;
