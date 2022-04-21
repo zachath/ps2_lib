@@ -1,6 +1,6 @@
 //Zacharias Thorell
 
-package lib;
+package ps2lib;
 
 public class IllegalServiceIdException extends Exception {
     public IllegalServiceIdException() {

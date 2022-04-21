@@ -1,9 +1,9 @@
 //Zacharias Thorell
 
-package lib.event;
+package ps2lib.event;
 
-import lib.CensusAPI;
-import lib.Faction;
+import ps2lib.CensusAPI;
+import ps2lib.Faction;
 import org.json.JSONObject;
 
 /**

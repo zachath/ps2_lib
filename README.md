@@ -1,4 +1,4 @@
-# Planetside 2 api lib
+# Planetside 2 api ps2lib
 ### Zacharias Thorell
 ### Built using the [Census API](http://census.daybreakgames.com/) provided by [Daybreak Games](https://www.daybreakgames.com/home).
 

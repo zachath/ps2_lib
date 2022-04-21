@@ -1,6 +1,6 @@
 //Zacharias Thorell
 
-package lib;
+package ps2lib;
 
 /**
  * Representing the factions of Planetside 2.
@@ -11,9 +11,9 @@ public enum Faction {
     VS("Vanu Sovereignty", "VS", Util.ANSI_PURPLE),
     NSO("NSO Operative", "NSO", Util.ANSI_WHITE);
 
-    final String fullName;
-    final String shortHand;
-    final String colour;
+    public final String fullName;
+    public final String shortHand;
+    public final String colour;
     Faction(String fullName, String shortHand, String colour) {
         this.fullName = fullName;
         this.shortHand = shortHand;
@@ -21,14 +21,14 @@ public enum Faction {
     }
 
     /**
-     * @return the colour of this faction.
+     * @return the colour of this faction (ONLY COMMAND LINE).
      */
     public String getFactionColour() {
         return colour;
     }
 
     /**
-     * Returns a String of the factions full name in the faction specific colour.
+     * Returns a String of the factions full name in the faction specific colour (ONLY COMMAND LINE).
      * @return String representation of the faction.
      */
     @Override

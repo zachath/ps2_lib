@@ -2,7 +2,7 @@
 
 package example;
 
-import lib.*;
+import ps2lib.*;
 
 /**
  * The task of looking up a player

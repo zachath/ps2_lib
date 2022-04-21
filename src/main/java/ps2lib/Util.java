@@ -1,6 +1,6 @@
 //Zacharias Thorell
 
-package lib;
+package ps2lib;
 
 /**
  * Utility class for stuff not directly related to the Census API.

@@ -1,9 +1,9 @@
 //Zacharias Thorell
 
-package lib;
+package ps2lib;
 
-import lib.event.Event;
-import lib.event.EventFactory;
+import ps2lib.event.Event;
+import ps2lib.event.EventFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

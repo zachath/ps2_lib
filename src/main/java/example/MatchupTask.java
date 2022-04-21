@@ -2,9 +2,9 @@
 
 package example;
 
-import lib.*;
-import lib.event.DeathCharacterEvent;
-import lib.event.EventFactory;
+import ps2lib.*;
+import ps2lib.event.DeathCharacterEvent;
+import ps2lib.event.EventFactory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 //Zacharias Thorell
 
-package lib.event;
+package ps2lib.event;
 
-import lib.CensusAPI;
-import lib.IllegalServiceIdException;
+import ps2lib.CensusAPI;
+import ps2lib.IllegalServiceIdException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

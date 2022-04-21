@@ -1,6 +1,6 @@
 //Zacharias Thorell
 
-package lib;
+package ps2lib;
 
 /**
  * Container class representing a Planetside 2 player profile.

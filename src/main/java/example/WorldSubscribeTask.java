@@ -2,9 +2,9 @@
 
 package example;
 
-import lib.CensusAPI;
-import lib.IllegalServiceIdException;
-import lib.event.*;
+import ps2lib.CensusAPI;
+import ps2lib.IllegalServiceIdException;
+import ps2lib.event.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static lib.CensusAPI.formatPayLoadWorld;
+import static ps2lib.CensusAPI.formatPayLoadWorld;
 
 /**
  * An example of subscribing to world events.

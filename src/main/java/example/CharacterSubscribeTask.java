@@ -2,10 +2,10 @@
 
 package example;
 
-import lib.CensusAPI;
-import lib.IllegalServiceIdException;
-import lib.PS2PlayerFactory;
-import lib.event.*;
+import ps2lib.CensusAPI;
+import ps2lib.IllegalServiceIdException;
+import ps2lib.PS2PlayerFactory;
+import ps2lib.event.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static lib.CensusAPI.formatPayLoadCharacter;
+import static ps2lib.CensusAPI.formatPayLoadCharacter;
 
 /**
  * An example of subscribing to different character events for a specific character.

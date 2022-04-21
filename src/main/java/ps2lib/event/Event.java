@@ -1,6 +1,6 @@
 //Zacharias
 
-package lib.event;
+package ps2lib.event;
 
 import org.json.JSONObject;
 

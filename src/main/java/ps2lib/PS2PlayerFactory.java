@@ -1,6 +1,6 @@
 //Zacharias Thorell
 
-package lib;
+package ps2lib;
 
 import org.json.JSONException;
 import org.json.JSONObject;

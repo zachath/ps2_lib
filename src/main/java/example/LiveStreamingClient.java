@@ -2,9 +2,9 @@
 
 package example;
 
-import lib.CensusAPI;
-import lib.IllegalServiceIdException;
-import lib.event.Event;
+import ps2lib.CensusAPI;
+import ps2lib.IllegalServiceIdException;
+import ps2lib.event.Event;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
