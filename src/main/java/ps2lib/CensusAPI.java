@@ -2,8 +2,7 @@
 
 package ps2lib;
 
-import ps2lib.event.Event;
-import ps2lib.event.EventFactory;
+import ps2lib.event.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +12,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
+
+//TODO: exclude example package from build, start using String.format and %s instead of a bunch of '+', use api to resolve ids.
 
 /**
  * Values related to the Census API and Planetside 2.
@@ -27,7 +28,11 @@ public class CensusAPI {
 
     //Valid character events that it is possible to subscribe to.
     //WARNING: GainExperience occurs VERY frequently (unless player is completely incompetent).
-    public static final List<String> VALID_SUBSCRIBE_CHARACTER_EVENTS = Arrays.asList("AchievementEarned", "BattleRankUp", "Death", "FacilityControl", "GainExperience", "ItemAdded", "PlayerFacilityCapture", "PlayerFacilityDefend", "PlayerLogin", "PlayerLogout", "SkillAdded", "VehicleDestroy");
+    public static final List<String> VALID_SUBSCRIBE_CHARACTER_EVENTS = Arrays.asList(
+            AchievementEarnedCharacterEvent.EVENT_NAME, BattleRankUpCharacterEvent.EVENT_NAME, DeathCharacterEvent.EVENT_NAME,
+            FacilityControlEvent.EVENT_NAME, GainExperienceCharacterEvent.EVENT_NAME, ItemAdded.EVENT_NAME,
+            PlayerFacilityCaptureCharacterEvent.EVENT_NAME, PlayerFacilityDefendCharacterEvent.EVENT_NAME, PlayerLoginCharacterEvent.EVENT_NAME,
+            PlayerLogoutCharacterEvent.EVENT_NAME, SkillAddedCharacterEvent.EVENT_NAME, VehicleDestroyCharacterEvent.EVENT_NAME);
 
     //Valid world-level events that it is possible to subscribe to.
     public static final List<String> VALID_SUBSCRIBE_WORLD_EVENTS = Arrays.asList("ContinentLock", "ContinentUnlock", "FacilityControl", "MetagameEvent");
@@ -170,7 +175,7 @@ public class CensusAPI {
      * @param events the events to subscribe to.
      * @return JSONObject as string.
      */
-    public static String formatPayLoadCharacter(Collection<String> characterIds, Collection<String> events) throws IllegalServiceIdException {
+    public static String formatCharacterSubscribePayLoad(Collection<String> characterIds, Collection<String> events) throws IllegalServiceIdException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
         JSONObject toBeSent = new JSONObject();
@@ -189,7 +194,7 @@ public class CensusAPI {
      * @param events the events to subscribe to.
      * @return JSONObject as string.
      */
-    public static String formatPayLoadWorld(Collection<String> worlds, Collection<String> events) throws IllegalServiceIdException {
+    public static String formatWorldSubscribePayLoad(Collection<String> worlds, Collection<String> events) throws IllegalServiceIdException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
         JSONObject toBeSent = new JSONObject();

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static ps2lib.CensusAPI.formatPayLoadCharacter;
+import static ps2lib.CensusAPI.formatCharacterSubscribePayLoad;
 
 /**
  * An example of subscribing to different character events for a specific character.
@@ -51,7 +51,7 @@ public class CharacterSubscribeTask implements Runnable {
     public void run() {
         try {
             CLIENT.connectBlocking();
-            CLIENT.send(formatPayLoadCharacter(characterIds, events));
+            CLIENT.send(formatCharacterSubscribePayLoad(characterIds, events));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -46,8 +46,8 @@ public class LookupTask implements Runnable {
                 "Logins: " + player.getLogins() + "\n" + "\n" +
                 "Minutes played: " + player.getMinutesPlayed() + "\t" +
                 "Hours played: " + player.getHoursPlayed() + "\n" + "\n" +
-                "Total Certs Accumulated: " + Util.printInColour(Integer.toString(player.getTotalCerts()), Util.ANSI_YELLOW) + "\t" +
-                "Available Certs: " + Util.printInColour(Integer.toString(player.getAvailableCerts()), Util.ANSI_YELLOW) + "\n" + "\n" +
+                "Total Certs Accumulated: " + player.getTotalCerts() + "\t" +
+                "Available Certs: " + player.getAvailableCerts() + "\n" + "\n" +
                 "Created: " + player.getCreationDate() + "\n" + "\n" +
                 "Finished in " + Math.round(((System.nanoTime() - start) / 1.0E9)) + " second(s)";
 

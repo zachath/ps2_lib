@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static ps2lib.CensusAPI.formatPayLoadWorld;
+import static ps2lib.CensusAPI.formatWorldSubscribePayLoad;
 
 /**
  * An example of subscribing to world events.
@@ -41,7 +41,7 @@ public class WorldSubscribeTask implements Runnable {
     public void run() {
         try {
             CLIENT.connectBlocking();
-            CLIENT.send(formatPayLoadWorld(worlds, events));
+            CLIENT.send(formatWorldSubscribePayLoad(worlds, events));
         } catch (Exception e) {
             e.printStackTrace();
         }

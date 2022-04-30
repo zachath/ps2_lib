@@ -6,25 +6,17 @@ package ps2lib;
  * Representing the factions of Planetside 2.
  */
 public enum Faction {
-    TR("Terran Republic", "TR", Util.ANSI_RED),
-    NC("New Conglomerate", "NC", Util.ANSI_BLUE),
-    VS("Vanu Sovereignty", "VS", Util.ANSI_PURPLE),
-    NSO("NSO Operative", "NSO", Util.ANSI_WHITE);
+    TR("Terran Republic", "TR"),
+    NC("New Conglomerate", "NC"),
+    VS("Vanu Sovereignty", "VS"),
+    NSO("NSO Operative", "NSO");
 
     public final String fullName;
     public final String shortHand;
-    public final String colour;
-    Faction(String fullName, String shortHand, String colour) {
+
+    Faction(String fullName, String shortHand) {
         this.fullName = fullName;
         this.shortHand = shortHand;
-        this.colour = colour;
-    }
-
-    /**
-     * @return the colour of this faction (ONLY COMMAND LINE).
-     */
-    public String getFactionColour() {
-        return colour;
     }
 
     /**
@@ -33,6 +25,6 @@ public enum Faction {
      */
     @Override
     public String toString() {
-        return Util.printInColour(fullName, colour);
+        return fullName;
     }
 }
