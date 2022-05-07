@@ -81,7 +81,7 @@ public class PS2PlayerFactory {
         int hoursPlayed = minutesPlayed / 60;
         int totalCerts = Integer.parseInt((String) responseObject.getJSONObject("certs").get("earned_points")) + Integer.parseInt((String) responseObject.getJSONObject("certs").get("gifted_points"));
         int availableCerts = Integer.parseInt((String) responseObject.getJSONObject("certs").get("available_points"));
-        Faction faction = CensusAPI.FACTION_MAP.get(responseObject.getString("faction_id"));
+        Faction faction = Resolver.resolveFaction(responseObject.getString("faction_id"));
         int logins = Integer.parseInt(responseObject.getJSONObject("times").getString("login_count"));
         String created = responseObject.getJSONObject("times").getString("creation_date");
 

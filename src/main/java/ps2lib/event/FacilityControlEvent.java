@@ -5,6 +5,7 @@ package ps2lib.event;
 import ps2lib.CensusAPI;
 import ps2lib.Faction;
 import org.json.JSONObject;
+import ps2lib.Resolver;
 
 /**
  * An event generated when a facility switches control.
@@ -31,8 +32,8 @@ public class FacilityControlEvent extends Event {
         this.durationHeld = object.getString("duration_held");
         this.facilityID = object.getString("facility_id");
         this.outfitID = object.getString("outfit_id");
-        this.newFaction = CensusAPI.FACTION_MAP.get(object.getString("new_faction_id"));
-        this.oldFaction = CensusAPI.FACTION_MAP.get(object.getString("old_faction_id"));
+        this.newFaction = Resolver.resolveFaction(object.getString("new_faction_id"));
+        this.oldFaction = Resolver.resolveFaction(object.getString("old_faction_id"));
     }
 
     @Override

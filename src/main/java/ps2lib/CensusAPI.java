@@ -13,7 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
 
-//TODO: exclude example package from build, start using String.format and %s instead of a bunch of '+', use api to resolve ids.
+//TODO: Remove stuff from this file and use this file only for getting api related variables.
 
 /**
  * Values related to the Census API and Planetside 2.
@@ -50,8 +50,6 @@ public class CensusAPI {
     private static final String GET = "get/";
     public static final int GET_MAX_LIMIT = 1000;
 
-    public static final Map<String, Faction> FACTION_MAP = Map.of("1", Faction.VS, "2", Faction.NC, "3", Faction.TR, "4", Faction.NSO);
-
     /**
      * To use the api a Service ID is needed which is requested at: http://census.daybreakgames.com/
      * @param serviceID Service ID.
@@ -62,7 +60,8 @@ public class CensusAPI {
 
     /**
      * Checks whether the Service ID has been set.
-     * @return if the service id has been set.
+     * Does not ensure that the ID is valid.
+     * @return true if the service id has been set (not null).
      */
     private static boolean serviceIDIsSet() {
         return SERVICE_ID != null;
@@ -107,6 +106,12 @@ public class CensusAPI {
         if (limit < 0 || limit > 1000)
             return null;
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "characters_event/?character_id=" + characterId + COMMAND_PREFIX + "limit=" + limit + AND + "type=" + type;
+    }
+
+    public static String getItemName(String id)  throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
+        return BASE_URL + SERVICE_ID + GET + NAMESPACE + "item/?item_id=" + id + COMMAND_PREFIX + "show=name.en";
     }
 
     /**
