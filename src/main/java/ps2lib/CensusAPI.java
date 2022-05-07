@@ -108,11 +108,17 @@ public class CensusAPI {
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "characters_event/?character_id=" + characterId + COMMAND_PREFIX + "limit=" + limit + AND + "type=" + type;
     }
 
-    public static String getItemName(String id)  throws IllegalServiceIdException {
+    public static String getItemName(String id) throws IllegalServiceIdException {
         if (!CensusAPI.serviceIDIsSet())
             throw new IllegalServiceIdException();
         return BASE_URL + SERVICE_ID + GET + NAMESPACE + "item/?item_id=" + id + COMMAND_PREFIX + "show=name.en";
     }
+
+    /*public static String getPlayerName(String id) throws IllegalServiceIdException {
+        if (!CensusAPI.serviceIDIsSet())
+            throw new IllegalServiceIdException();
+        return BASE_URL + SERVICE_ID + GET + NAMESPACE +
+    }*/
 
     /**
      * @return the url for the event streaming.

@@ -34,11 +34,23 @@ public class Resolver {
     public static String resolveItemName(String id) {
         try {
             String query = CensusAPI.getItemName(id);
-            System.out.println(query);
             return CensusAPI.getResponseObject(query, "item_list").getJSONObject("name").getString("en");
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException("Invalid id");
+        }
+    }
+
+    /**
+     * Resolve player name without creating an entire character.
+     * @param id character id.
+     * @return name of player.
+     */
+    public static String resolvePlayerName(String id) {
+        try {
+            String query = CensusAPI.getCharacterFromIdURL(id, CensusAPI.SHOW_FILTER + "name");
+            return CensusAPI.getResponseObject(query, "character_list").getJSONObject("name").getString("first");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid id");
         }
     }
 }
